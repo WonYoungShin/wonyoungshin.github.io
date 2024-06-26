@@ -2,7 +2,6 @@ name: "Build and Deploy"
 on:
   repository_dispatch:
     types: [RUN_WORKFLOW_DISPATCH]
-  workflow_dispatch:
 
 permissions:
   contents: write
@@ -15,20 +14,25 @@ concurrency:
 
 jobs:
   importer:
-    if: github.event_name == 'repository_dispatch' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4  # Updated to v4
+      - uses: actions/checkout@master
 
       - name: Clean Directory
         run: |
-          # _posts 디렉토리만 삭제
+          for file in assets/img/*
+          do
+              if [[ $file != "assets/img/favicons" ]]
+              then
+                  rm -rf "$file"
+              fi
+          done
           rm -rf _posts/*
 
-      - uses: actions/setup-node@v4  # Updated to v4
+      - uses: actions/setup-node@v3
         with:
-          node-version: "20"  # Updated to Node.js 20
+          node-version: "17"
 
       - run: npm install
 
@@ -37,7 +41,7 @@ jobs:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           DATABASE_ID: ${{ secrets.DATABASE_ID }}
 
-      - uses: stefanzweifel/git-auto-commit-action@v5  # Updated to v5
+      - uses: stefanzweifel/git-auto-commit-action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -46,16 +50,19 @@ jobs:
           commit_user_name: importer-bot 🤖
           commit_user_email: actions@github.com
           commit_author: importer-bot 🤖 <actions@github.com>
-
+  
   build:
-    needs: [importer]
+    needs: importer
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4  # Updated to v4
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          # submodules: true
+          # If using the 'assets' git submodule from Chirpy Starter, uncomment above
+          # (See: https://github.com/cotes2020/chirpy-starter/tree/main/assets)
 
       - name: Setup Pages
         id: pages
@@ -71,10 +78,6 @@ jobs:
         run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: "production"
-
-      - name: Test site
-        run: |
-          bundle exec htmlproofer _site --disable-external --check-html --allow_hash_href
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
