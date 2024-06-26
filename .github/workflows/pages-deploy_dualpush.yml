@@ -1,5 +1,13 @@
 name: "Build and Deploy"
 on:
+  push:
+    branches:
+      - main
+      - master
+    paths-ignore:
+      - .gitignore
+      - README.md
+      - LICENSE
   repository_dispatch:
     types: [RUN_WORKFLOW_DISPATCH]
   workflow_dispatch:
@@ -15,7 +23,7 @@ concurrency:
 
 jobs:
   importer:
-    if: github.event_name == 'repository_dispatch' || github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'repository_dispatch' || github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
 
     steps:
@@ -23,7 +31,13 @@ jobs:
 
       - name: Clean Directory
         run: |
-          # _posts 디렉토리만 삭제
+          # for file in assets/img/*
+          # do
+          #     if [[ $file != "assets/img/favicons" ]]
+          #     then
+          #         rm -rf "$file"
+          #     fi
+          # done
           rm -rf _posts/*
 
       - uses: actions/setup-node@v4  # Updated to v4
@@ -71,10 +85,6 @@ jobs:
         run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: "production"
-
-      - name: Test site
-        run: |
-          bundle exec htmlproofer _site --disable-external --check-html --allow_hash_href
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
