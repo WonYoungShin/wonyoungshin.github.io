@@ -46,3 +46,23 @@
 #toc-top li, #toc li {
   margin: 0.5em 0;
 }
+
+/* 다크 모드용 스타일 */
+@media (prefers-color-scheme: dark) {
+  .toc-section {
+    background-color: #333;
+    border-color: #555;
+    color: #fff;
+  }
+
+  .toc-section h2 {
+    color: #fff;
+  }
+
+  #toc-top a, #toc a {
+    color: #ddd;
+  }
+
+  #toc-top a:hover, #toc a:hover {
+    color: #fff;
+  }

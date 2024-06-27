@@ -679,11 +679,11 @@ $btn-mb: 0.5rem;
   overflow-y: auto;
   width: $sidebar-width;
   z-index: 99;
-  background: var(--sidebar-bg);
+  // background: var(--sidebar-bg);
   border-right: 1px solid var(--sidebar-border-color);
-  // background: url('/assets/img/A_beach_night.jpg');
-  // background-size: 100% 100%;
-  // background-position: center;
+  background: url('/assets/img/favicons/astronomy.png');
+  background-size: 100% 100%;
+  background-position: center;
 
   /* Hide scrollbar for Chrome, Safari and Opera */
   &::-webkit-scrollbar {
