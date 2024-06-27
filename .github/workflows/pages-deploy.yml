@@ -8,16 +8,17 @@ permissions:
   pages: write
   id-token: write
 
+# Concurrency 설정 변경 (필요 시 주석 처리)
 concurrency:
   group: "pages"
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   importer:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v4 # v4가 최신 버전입니다.
 
       - name: Clean Directory
         run: |
@@ -93,4 +94,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v4 
