@@ -8,6 +8,7 @@
 ';
 
 /* append your custom style below */
+/* -------------------------------------------------  */
 
 /* 무지개색 애니메이션 정의 */
 @keyframes rainbow {
@@ -21,8 +22,27 @@
 }
 
 /* 목차 항목에 마우스를 올렸을 때 무지개색으로 변하게 함 */
-#toc a:hover,
 #toc-top a:hover,
-#toc-side a:hover {
+#toc a:hover {
   animation: rainbow 1s linear infinite;
+}
+
+.toc-section {
+  margin-bottom: 2em;
+  padding: 1em;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+}
+
+.toc-section h2 {
+  margin-top: 0;
+}
+
+#toc-top ul, #toc ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+#toc-top li, #toc li {
+  margin: 0.5em 0;
 }

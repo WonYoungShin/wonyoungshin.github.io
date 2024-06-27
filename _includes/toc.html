@@ -9,11 +9,12 @@
   <!-- 포스트 상단에 목차 표시 -->
   <section id="toc-wrapper-top" class="toc-section">
     <h2 class="panel-heading">목차</h2>
-    <nav id="toc"></nav>
+    <nav id="toc-top"></nav>
   </section>
 {% endif %}
 
 {% if enable_toc %}
+  <!-- 사이드바에 목차 표시 -->
   <section id="toc-wrapper" class="d-none ps-0 pe-4">
     <h2 class="panel-heading ps-3 mb-2">{{- site.data.locales[include.lang].panel.toc -}}</h2>
     <nav id="toc"></nav>
@@ -22,19 +23,23 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    var toc = document.getElementById('toc');
-    if (toc) {
-      var tocContent = document.querySelectorAll('h2, h3');
-      var tocList = document.createElement('ul');
-      tocContent.forEach(function(heading) {
-        var listItem = document.createElement('li');
-        var link = document.createElement('a');
-        link.href = '#' + heading.id;
-        link.textContent = heading.textContent;
-        listItem.appendChild(link);
-        tocList.appendChild(listItem);
-      });
-      toc.appendChild(tocList);
+    function generateTOC(tocElement) {
+      if (tocElement) {
+        var tocContent = document.querySelectorAll('h2, h3');
+        var tocList = document.createElement('ul');
+        tocContent.forEach(function(heading) {
+          var listItem = document.createElement('li');
+          var link = document.createElement('a');
+          link.href = '#' + heading.id;
+          link.textContent = heading.textContent;
+          listItem.appendChild(link);
+          tocList.appendChild(listItem);
+        });
+        tocElement.appendChild(tocList);
+      }
     }
+
+    var tocTop = document.getElementById('toc-top');
+    generateTOC(tocTop);
   });
 </script>
