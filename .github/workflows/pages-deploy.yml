@@ -10,8 +10,8 @@ permissions:
 
 # Allow one concurrent deployment
 concurrency:
-  group: "pages-${{ github.sha }}"
-  cancel-in-progress: false
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
   importer:
@@ -33,7 +33,7 @@ jobs:
       
       - uses: actions/setup-node@v3
         with:
-          node-version: "20"
+          node-version: "17"
 
       - run: npm install
 
@@ -47,7 +47,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           commit_message: "[배포] Notion 변경 사항 저장"
-          branch: master
+          branch: master  
           commit_user_name: importer-bot 🤖
           commit_user_email: actions@github.com
           commit_author: importer-bot 🤖 <actions@github.com>
@@ -76,13 +76,14 @@ jobs:
           ruby-version: '3.1' # reads from a '.ruby-version' or '.tools-version' file if 'ruby-version' is omitted
           bundler-cache: true
 
-      - name: Install Jekyll and Bundler
-        run: gem install jekyll bundler
-
       - name: Build site
         run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: "production"
+
+      - name: Test site
+        run: |
+          bundle exec htmlproofer _site --disable-external --check-html --allow_hash_href
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v1
