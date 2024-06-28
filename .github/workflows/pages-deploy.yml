@@ -33,7 +33,7 @@ jobs:
       
       - uses: actions/setup-node@v3
         with:
-          node-version: "17"
+          node-version: "20"
 
       - run: npm install
 
@@ -47,7 +47,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           commit_message: "[배포] Notion 변경 사항 저장"
-          branch: main
+          branch: master
           commit_user_name: importer-bot 🤖
           commit_user_email: actions@github.com
           commit_author: importer-bot 🤖 <actions@github.com>
@@ -60,7 +60,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          ref: main
+          ref: master
           fetch-depth: 1
           # submodules: true
           # If using the 'assets' git submodule from Chirpy Starter, uncomment above
