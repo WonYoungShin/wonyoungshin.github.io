@@ -32,6 +32,7 @@
   padding: 1em;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
+  border-radius: 10px; /* 라운드 처리 */
 }
 
 .toc-section h2 {
@@ -47,23 +48,53 @@
   margin: 0.5em 0;
 }
 
+#toc-top li ul, #toc li ul {
+  margin-left: 20px; /* 하위 항목을 들여쓰기 */
+}
+
+#toc-top li ul li ul, #toc li ul li ul {
+  margin-left: 20px; /* 더 하위 항목을 더 들여쓰기 */
+}
+
+/* 일반 모드용 스타일 */
+#toc-top {
+  background-color: #f9f9f9 !important; /* 배경색 적용 */
+  padding: 1em; /* 여백 추가 */
+  border-radius: 10px; /* 라운드 처리 */
+  margin-bottom: 1em; /* 아래 여백 추가 */
+}
+
+#toc-top a {
+  color: #000 !important; /* 링크 색상 */
+  transition: color 0.5s; /* 호버시 색상 변경 트랜지션 */
+}
+
 /* 다크 모드용 스타일 */
 @media (prefers-color-scheme: dark) {
   .toc-section {
-    background-color: #333;
-    border-color: #555;
-    color: #fff;
-  }
-
-  .toc-section h2 {
-    color: #fff;
-  }
-
-  #toc-top a, #toc a {
+    background-color: #444;
+    border-color: #666;
     color: #ddd;
   }
 
+  .toc-section h2 {
+    color: #ddd;
+  }
+
+  #toc-top {
+    background-color: #333 !important; /* 다크 모드 배경색 적용 */
+    color: #fff !important; /* 다크 모드 텍스트 색상 */
+    padding: 1em; /* 여백 추가 */
+    border-radius: 10px; /* 라운드 처리 */
+    margin-bottom: 1em; /* 아래 여백 추가 */
+  }
+
+  #toc-top a, #toc a {
+    color: #bbb !important; /* 다크 모드 링크 색상 */
+    transition: color 0.5s; /* 호버시 색상 변경 트랜지션 */
+  }
+
   #toc-top a:hover, #toc a:hover {
-    color: #fff;
+    color: #fff !important; /* 다크 모드에서 링크 호버 색상 */
   }
 }

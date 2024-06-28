@@ -95,6 +95,9 @@ tail_includes:
     </div>
   </header>
 
+  <!-- TOC를 삽입할 위치 -->
+  <div id="toc-top"></div>
+
   <div class="content">
     {{ content }}
   </div>
@@ -157,4 +160,64 @@ tail_includes:
     crossorigin="anonymous"
     async>
   </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      function generateTOC(tocElement) {
+        if (tocElement) {
+          var tocContent = document.querySelectorAll('h1, h2, h3');
+          var tocList = document.createElement('ul');
+          var currentLevel = 1;
+          var currentList = tocList;
+  
+          var skipHeadings = ['원영의 개발로그', '인기 태그', '최근 업데이트', '바로가기'];
+  
+          tocContent.forEach(function(heading) {
+            var headingText = heading.textContent.trim();
+            console.log('Processing heading:', headingText); // 디버그 로그
+            if (heading.getAttribute('data-toc-skip') !== null || skipHeadings.includes(headingText)) {
+              console.log('Skipping heading:', headingText); // 디버그 로그
+              return;
+            }
+            if (!heading.id) {
+              heading.id = headingText.replace(/\s+/g, '-').toLowerCase();
+            }
+  
+            var level = parseInt(heading.tagName.substring(1));
+            if (level > currentLevel) {
+              if (currentList.lastChild) {
+                var newList = document.createElement('ul');
+                currentList.lastChild.appendChild(newList);
+                currentList = newList;
+              }
+            } else if (level < currentLevel) {
+              currentList = tocList;
+              for (var i = 1; i < level; i++) {
+                if (currentList.lastChild) {
+                  currentList = currentList.lastChild.querySelector('ul') || currentList;
+                }
+              }
+            }
+            currentLevel = level;
+  
+            var listItem = document.createElement('li');
+            var link = document.createElement('a');
+            link.href = '#' + heading.id;
+            link.textContent = headingText;
+            listItem.appendChild(link);
+            currentList.appendChild(listItem);
+          });
+  
+          tocElement.appendChild(tocList);
+        }
+      }
+  
+      var tocTop = document.getElementById('toc-top');
+      generateTOC(tocTop);
+    });
+  </script>
+  
+  
+
+    
 </article>
