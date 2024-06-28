@@ -11,7 +11,6 @@
 /* -------------------------------------------------  */
 
 /* 무지개색 애니메이션 정의 */
-/* 무지개색 애니메이션 정의 */
 @keyframes rainbow {
   0% { color: red; }
   16.6% { color: orange; }
@@ -25,7 +24,7 @@
 /* 목차 항목에 마우스를 올렸을 때 무지개색으로 변하게 함 */
 #toc-top li a:hover,
 #toc li a:hover {
-  animation: rainbow 1s linear infinite;
+  animation: rainbow 1s linear infinite !important;
 }
 
 .toc-section {
@@ -94,6 +93,6 @@
   }
 
   #toc-top a:hover, #toc a:hover {
-    color: #fff !important; /* 다크 모드에서 링크 호버 색상 */
+    animation: rainbow 1s linear infinite !important;
   }
 }
