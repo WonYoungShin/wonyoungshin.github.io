@@ -38,16 +38,17 @@ function replaceTitleOutsideRawBlocks(body) {
 
   return body;
 }
+
+function preserveAsideTag(body) {
+  // <aside> 태그를 블록 인용으로 변환
+  return body.replace(/<aside>/g, '\n> ').replace(/<\/aside>/g, '\n');
+}
 // 목록 항목 앞에 공백을 추가하여 들여쓰기를 일관되게 유지
 function processMarkdown(body) {
-  body = body.replace(/^> /gm, '');
-  body = body.replace(/^- /gm, '  - ');
+  // 블록 인용 내부의 목록 들여쓰기 유지
+  body = body.replace(/^> /gm, '> ');
+  body = body.replace(/^- /gm, '> - ');
   return body;
-}
-
-// `<aside>` 태그를 변환 중에 유지하도록 추가한 함수
-function preserveAsideTag(body) {
-  return body.replace(/<aside>/g, '\n<aside>\n').replace(/<\/aside>/g, '\n</aside>\n');
 }
 
 // Notion 클라이언트를 옵션으로 전달합니다.
