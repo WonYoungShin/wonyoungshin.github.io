@@ -8,4 +8,5 @@ group :test do
   gem "html-proofer", "~> 5.0"
   gem 'wdm', '>= 0.1.0' if Gem.win_platform?
   gem 'tzinfo-data'
+  gem 'jekyll-asset-pipeline'
 end

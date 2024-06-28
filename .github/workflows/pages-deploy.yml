@@ -8,10 +8,10 @@ permissions:
   pages: write
   id-token: write
 
-# Concurrency 설정 변경 (필요 시 주석 처리)
+# Concurrency 설정 (필요에 따라 조정)
 concurrency:
-  group: "pages"
-  cancel-in-progress: true
+  group: "pages-${{ github.sha }}"
+  cancel-in-progress: false
 
 jobs:
   importer:

@@ -39,9 +39,22 @@ function replaceTitleOutsideRawBlocks(body) {
   return body;
 }
 
+function processMarkdown(body) {
+  body = body.replace(/^> /gm, '');
+  body = body.replace(/^- /gm, '  - ');
+  return body;
+}
+
 function preserveAsideTag(body) {
-  // <aside> 태그를 블록 인용으로 변환
-  return body.replace(/<aside>/g, '\n> ').replace(/<\/aside>/g, '\n');
+  // <aside> 태그 내부의 내용을 블록 인용으로 변환
+  const asideRegex = /<aside>([\s\S]*?)<\/aside>/g;
+  return body.replace(asideRegex, function(match, content) {
+    const processedContent = content
+      .split('\n')
+      .map(line => '> ' + line)
+      .join('\n');
+    return `\n<aside>\n${processedContent}\n</aside>\n`;
+  });
 }
 
 // Notion 클라이언트를 옵션으로 전달합니다.
@@ -144,8 +157,9 @@ title: "${title}"${fmtags}${fmcats}
     }
     md = escapeCodeBlock(md);
     md = replaceTitleOutsideRawBlocks(md);
-    md = preserveAsideTag(md); // 추가된 부분
-    
+    md = preserveAsideTag(md); // <aside> 태그 내부만 블록 인용으로 변환
+    md = processMarkdown(md); 
+
     const ftitle = `${date}-${title.replaceAll(" ", "-")}.md`;
 
     let index = 0;
