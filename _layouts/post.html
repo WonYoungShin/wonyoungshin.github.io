@@ -169,7 +169,6 @@ tail_includes:
           var tocList = document.createElement('ul');
           var currentLevel = 1;
           var currentList = tocList;
-  
           var skipHeadings = ['원영의 개발로그', '인기 태그', '최근 업데이트', '바로가기'];
   
           tocContent.forEach(function(heading) {
@@ -205,6 +204,12 @@ tail_includes:
             link.href = '#' + heading.id;
             link.textContent = headingText;
             listItem.appendChild(link);
+  
+            // 기호 추가
+            var symbol = document.createElement('span');
+            symbol.textContent = '• '; // 원하는 기호로 변경 가능
+            listItem.insertBefore(symbol, link);
+  
             currentList.appendChild(listItem);
           });
   
@@ -213,12 +218,10 @@ tail_includes:
       }
   
       var tocTop = document.getElementById('toc-top');
+      console.log("TOC Top Element:", tocTop);
       generateTOC(tocTop);
     });
-  </script>
-  
-  
-  
+  </script> 
 
     
 </article>

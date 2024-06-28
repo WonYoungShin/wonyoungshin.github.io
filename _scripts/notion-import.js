@@ -43,13 +43,6 @@ function preserveAsideTag(body) {
   // <aside> 태그를 블록 인용으로 변환
   return body.replace(/<aside>/g, '\n> ').replace(/<\/aside>/g, '\n');
 }
-// 목록 항목 앞에 공백을 추가하여 들여쓰기를 일관되게 유지
-function processMarkdown(body) {
-  // 블록 인용 내부의 목록 들여쓰기 유지
-  body = body.replace(/^> /gm, '> ');
-  body = body.replace(/^- /gm, '> - ');
-  return body;
-}
 
 // Notion 클라이언트를 옵션으로 전달합니다.
 const n2m = new NotionToMarkdown({ notionClient: notion });
@@ -152,8 +145,7 @@ title: "${title}"${fmtags}${fmcats}
     md = escapeCodeBlock(md);
     md = replaceTitleOutsideRawBlocks(md);
     md = preserveAsideTag(md); // 추가된 부분
-    md = processMarkdown(md); // 추가된 부분
-
+    
     const ftitle = `${date}-${title.replaceAll(" ", "-")}.md`;
 
     let index = 0;
