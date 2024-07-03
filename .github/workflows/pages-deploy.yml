@@ -36,7 +36,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: "20"
+          node-version: "20"  # Node.js 버전을 20으로 설정
 
       - run: npm install
 
@@ -61,10 +61,6 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Setup Pages
-        id: pages
-        run: echo "base_path=_site" >> $GITHUB_ENV
-
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -72,19 +68,15 @@ jobs:
           bundler-cache: true
 
       - name: Build site
-        run: bundle exec jekyll b -d "_site${{ env.base_path }}"
-        env:
-          JEKYLL_ENV: "production"
+        run: bundle exec jekyll b -d "_site"
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: "_site${{ env.base_path }}"
+          path: "_site"
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          environment: github-pages  # 환경 이름 명확히 지정
+          token: ${{ secrets.GITHUB_TOKEN }}
