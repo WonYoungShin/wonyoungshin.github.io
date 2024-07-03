@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2024-07-02
-title: "Readable_Code(작성중)"
+title: "Readable_Code_01.추상"
 tags: [Coding, ]
 categories: [Thinking, ]
 ---
@@ -21,7 +21,7 @@ categories: [Thinking, ]
 	- 고수준? → 추상화 레벨이 높다 → 함축적 이다
 	- 저수준? → 추상화 레벨이 낮다 → 구체적 이다
 
-		![0](/assets/img/2024-07-02-Readable_Code(작성중).md/0.png)
+		![0](/assets/img/2024-07-02-Readable_Code_01.추상.md/0.png)
 
   - 추상으로부터 구체를 유추하지 못한 이유
 	- 추상화 과정에서 중요한 정보를 부각시키지 못했다.
@@ -38,7 +38,7 @@ categories: [Thinking, ]
 ### 이름짓기
 
 
-![1](/assets/img/2024-07-02-Readable_Code(작성중).md/1.png)
+![1](/assets/img/2024-07-02-Readable_Code_01.추상.md/1.png)
 
 1. 단수와 복수를 구분하기
 2. 이름 줄이지 않기
@@ -56,30 +56,30 @@ categories: [Thinking, ]
 
   - 한 메서드의 주제는 반드시 하나다.
 
-	![2](/assets/img/2024-07-02-Readable_Code(작성중).md/2.png)
+	![2](/assets/img/2024-07-02-Readable_Code_01.추상.md/2.png)
 
 
-	![3](/assets/img/2024-07-02-Readable_Code(작성중).md/3.png)
+	![3](/assets/img/2024-07-02-Readable_Code_01.추상.md/3.png)
 
   - 메서드의 표현
 
-	![4](/assets/img/2024-07-02-Readable_Code(작성중).md/4.png)
+	![4](/assets/img/2024-07-02-Readable_Code_01.추상.md/4.png)
 
   - 메서드명
 	- 추상화된 구체를 유추 할 수 있는 적절한 의미가 담긴 이름
 	- 파라미터와 연결지어 더 풍부한 의미를 전달 할 수 있다.
 
-	![5](/assets/img/2024-07-02-Readable_Code(작성중).md/5.png)
+	![5](/assets/img/2024-07-02-Readable_Code_01.추상.md/5.png)
 
   - 파라미터
 	- 파라미터는 외부와 소통하는 창으로 `타입, 개수, 순서`를 통해 의미를 전달
 
-	![6](/assets/img/2024-07-02-Readable_Code(작성중).md/6.png)
+	![6](/assets/img/2024-07-02-Readable_Code_01.추상.md/6.png)
 
   - 반환타입
 	- 적절한 타입의 반환 값
 
-	![7](/assets/img/2024-07-02-Readable_Code(작성중).md/7.png)
+	![7](/assets/img/2024-07-02-Readable_Code_01.추상.md/7.png)
 
 
 
@@ -87,7 +87,7 @@ categories: [Thinking, ]
 
   - 하나의 세계 안에서는, 추상화 레벨이 동등한것이 가독성이 좋다.
 
-![8](/assets/img/2024-07-02-Readable_Code(작성중).md/8.png)
+![8](/assets/img/2024-07-02-Readable_Code_01.추상.md/8.png)
 
 
 
