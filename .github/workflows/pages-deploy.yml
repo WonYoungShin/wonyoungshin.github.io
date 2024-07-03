@@ -36,7 +36,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: "17"
+          node-version: "20"  # Node.js 버전을 20으로 설정
 
       - run: npm install
 
